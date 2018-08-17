@@ -14,7 +14,6 @@ class Record extends MY_Controller {
 		$this->mViewData['doc_name'] = $this->user_model->get_document_detail();
 		
 		$this->mViewData['data'] = $this->user_model->get_all_billing_info();
-				//echo "<pre>";print_r($this->mViewData);die;
 		$this->render("list");
 	}
 

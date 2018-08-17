@@ -1,5 +1,4 @@
 <link href=<?php echo base_url('assets/css/bootstrap.min.css');?> type="text/css" rel="stylesheet" />
-<?php //echo '<pre>';print_r($data);die;?>
 <head>
     <title>Form Validation Example</title>
     <style>
@@ -9,13 +8,12 @@
 </head>
 <div class="row page-content">
   <div style="text-align: center;width: 40%;margin-left: 25%;">
-  	<!-- <div class="alert alert-danger">
-  		<strong><?php //echo $this->session->flashdata('error');?></strong>
-
-        <div class="form_error">
-          <?php  //echo validation_errors(); ?>
-        </div> 
-	</div> -->
+  	<?php $data =$this->session->flashdata('error');  if(isset($data)){?>
+  		<div class="alert alert-danger">
+  			<strong><?php echo $this->session->flashdata('error');?></strong> 
+		</div>
+  	<?php }?>
+  	
 	<h2>Register Form</h2>
     <hr/>
     <?php echo form_open('home/register'); ?>

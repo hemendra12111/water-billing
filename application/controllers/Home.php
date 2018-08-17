@@ -29,33 +29,31 @@ class Home extends MY_Controller{
 		$this->form_validation->set_rules('meter_reading', 'Meter Reading', 'required');
 
 
-		$name = explode(' ', $_POST['name'],2);
-		$_POST['first_name'] = $name[0];
-		$_POST['last_name']  = $name[1];
-		$_POST['inserted_date'] = now();
-		$_POST['update_date'] = now();
-		unset($_POST['name']);
-		if($this->checkMobile($_POST['phone'])){
-			$this->session->set_flashdata('error', 'Record Already exists');
-			redirect('home/index');
-		}else{
-			$flag = $this->user_model->save_details($_POST);
-		}
+		
 
 
 
 		if ($this->form_validation->run() == FALSE)
 		{
-
-				$this->render("registration_view");
+			$this->render("registration_view");
 		}
 		else
 		{
-			
+	        $name = explode(' ', $_POST['name'],2);
+			$_POST['first_name'] = $name[0];
+			$_POST['last_name']  = $name[1];
+			$_POST['inserted_date'] = now();
+			$_POST['update_date'] = now();
+			if($this->checkMobile($_POST['phone'])){
+				$this->session->set_flashdata('error', 'Record Already exists');
 				$this->mViewData['data']= $_POST;
-				
 				$this->render("registration_view");
-		        // load success template...
+			}else{
+				unset($_POST['name']);
+				$flag = $this->user_model->save_details($_POST);
+				redirect('record');
+			}
+			
 		}
 	
 
