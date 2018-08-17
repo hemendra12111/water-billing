@@ -43,6 +43,14 @@ class User_model extends CI_Model {
     $this->db->delete('billing_info');
     return $this->db->affected_rows();
     }
+    public function is_login($meter,$phone){
+        $this->db->select('*');
+        $this->db->from('billing_info');
+        $this->db->where('meter_number',$meter);
+        $this->db->where('phone',$phone);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
 
 }?>
