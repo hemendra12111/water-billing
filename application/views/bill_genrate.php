@@ -1,109 +1,231 @@
+
 <html>
-<div class="container" style="
-    width:  80%;
-    height:  50%;
-    border:  1px solid;
-">
-    <div class="">
-        	<h2><span class="left">Water-Bill </span><span class="right">Order # <?php echo rand();?></span></h2>
-    </div>
-    		<hr>
-    		<div class="row">
-    			<div class="col-xs-6">
-    				<address>
-    				<strong>Billed To:</strong><br>
-    					<?php echo $data[0]['first_name']." ".$data[0]['last_name']; ?><br>
-    					 S/O <?php echo $data[0]['father_name']; ?>
-    				</address>
-    			</div>
-    			<div class="col-xs-6 text-right">
-    				<address>
-        			<strong>Address:</strong><br>
-    					<?php echo $data[0]['address'];?>
-    				</address>
-    			</div>
-    		</div>
-    		<div class="row">
-    			<div class="col-xs-6">
-    				<address>
-    					<strong>Order Date:</strong><br>
-    					<?php echo date("Y-m-d h:i:sa");?>
-    					<br><br>
-    				</address>
-    			</div>
-    			<div class="col-xs-6 text-right">
-        			<strong>
-        				Basic Details
-        			</strong><br>
-        			Meter Number:<span><?php echo $data[0]['meter_number'];?></span><br>
-        			Zone Number:<span><?php echo $data[0]['zone_number'];?></span><br>
-    			</div>
-    		</div>
-    	</div>
-    </div>
-    
-    <div class="row">
-    	<div class="col-md-12">
-    		<div class="panel panel-default">
-    			<div class="panel-heading">
-    				<h3 class="panel-title"><strong>Bill-Details</strong></h3>
-    			</div>
-    			<div class="panel-body">
-    				<div class="table-responsive">
-    					<table class="table table-condensed">
-    						<thead>
-                                <tr>
-        							<td><strong></strong></td>
-        							<td class="text-center"><strong>Total Unit</strong></td>
-        							<td class="text-center"><strong>Per Unit/Price</strong></td>
-        							<td class="text-right"><strong>Total</strong></td>
-                                </tr>
-    						</thead>
-    						<tbody>
-    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
-    							<tr>
-    								<td>Total Unit of Last Two Month</td>
-    								<td class="text-center"><?php echo $data[0]['meter_reading'];?></td>
-    								<td class="text-center">5</td>
-    								<td class="text-right"><?php echo $total = $data[0]['meter_reading']*5;?></td>
-    							<tr>
+    <head>
+        <meta charset="utf-8">
+        <title>Invoice</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Invoice</h1>
+            <address >
+                <p><?php echo $data['first_name'].' '.$data['last_name'];?>
+                <br>s/o <?php echo $data['father_name'];?></p>
+            </address>
 
-    							<tr>
-    								<td>Service Text(14%)</td>
-    								<td class="text-center"></td>
-    								<td class="text-center"></td>
-    								<td class="text-right"><?php echo $tax = $total*14/100;?></td>
-    							<tr>
+            <address > <h4>Address:</h4><p><?php echo $data['address'];?></p>
+                <h4>Phone Number :</h4><p><?php echo $data['phone'];?></p>
+            </address>
+        </header>
+        <article>
+        <table class="meta">
+                <tr>
+                    <th><span >Invoice #</span></th>
+                    <td><span ><?php echo rand();?></span></td>
+                </tr>
+                <tr>
+                    <th><span >Date</span></th>
+                    <td><span ><?php echo date('d-m-y');?></span></td>
+                </tr>
+            </table>
+            <table class="inventory">
+                <thead>
+                    <tr>
+                        <th><span >Description</span></th>
+                        <th><span >Total Unit</span></th>
+                        <th><span >Unit Cost</span></th>
+                        <th><span >Total</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span >Total Unit last 2 month </span></td>
+                        <td><span data-prefix><span ><?php echo $data['meter_reading']; ?></span></td>
+                        <td><span >5</span></td>
+                        <td><span data-prefix><span><?php echo $total =$data['meter_reading']*5; ?></span></td>
+                    </tr>
+                    <tr>
+                        <td><span >Service text(14%) </span></td>
+                        <td><span data-prefix><span >------</span></td>
+                        <td><span >----</span></td>
+                        <td><span data-prefix><span><?php echo $tex = $total*14/100; ?></span></td>
+                    </tr>
 
-    								<td class="thick-line"></td>
-    								<td class="thick-line"></td>
-    								<td class="thick-line text-center"><strong>Total</strong></td>
-    								<td class="thick-line text-right"><?php echo $tax+$total;?></td>
-    							</tr>
-    						</tbody>
-    					</table>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </div>
-</div>
+                </tbody>
+            </table>
+            <table class="balance">
+                <tr>
+                    <th><span >Total</span></th>
+                    <td><span data-prefix><span><?php echo $tex+$total;?></span></td>
+                </tr>
+                <tr>
+                    <th><span >Amount Paid</span></th>
+                    <td><span data-prefix><span >0.00</span></td>
+                </tr>
+                <tr>
+                    <th><span >Balance Due</span></th>
+                    <td><span data-prefix><span><?php echo $tex+$total;?></span></td>
+                </tr>
+            </table>
+        </article>
+        <aside>
+            <h1><span >Additional Notes</span></h1>
+            <div >
+                <p>A finance charge of 2% will be made on unpaid balances after 15 days.</p>
+            </div>
+        </aside>
+    </body>
+</html>
+
 
 <style type="text/css">
-	.invoice-title h2, .invoice-title h3 {
-    	display: inline-block;
-	}
+    /* reset */
 
-	.table > tbody > tr > .no-line {
-	    border-top: none;
-	}
+*
+{
+    border: 0;
+    box-sizing: content-box;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    vertical-align: top;
+}
 
-	.table > thead > tr > .no-line {
-	    border-bottom: none;
-	}
+/* content editable */
 
-	.table > tbody > tr > .thick-line {
-	    border-top: 2px solid;
-	}
+*[] { border-radius: 0.25em; min-width: 1em; outline: 0; }
+
+*[] { cursor: pointer; }
+
+*[]:hover, *[]:focus, td:hover *[], td:focus *[], img.hover { background: #DEF; box-shadow: 0 0 1em 0.5em #DEF; }
+
+span[] { display: inline-block; }
+
+/* heading */
+
+h1 { font: bold 100% sans-serif; letter-spacing: 0.5em; text-align: center; text-transform: uppercase; }
+
+/* table */
+
+table { font-size: 75%; table-layout: fixed; width: 100%; }
+table { border-collapse: separate; border-spacing: 2px; }
+th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
+th, td { border-radius: 0.25em; border-style: solid; }
+th { background: #EEE; border-color: #BBB; }
+td { border-color: #DDD; }
+
+/* page */
+
+html { font: 16px/1 'Open Sans', sans-serif; overflow: auto; padding: 0.5in; }
+html { background: #999; cursor: default; }
+
+body { box-sizing: border-box; height: 11in; margin: 0 auto; overflow: hidden; padding: 0.5in; width: 8.5in; }
+body { background: #FFF; border-radius: 1px; box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); }
+
+/* header */
+
+header { margin: 0 0 3em; }
+header:after { clear: both; content: ""; display: table; }
+
+header h1 { background: #000; border-radius: 0.25em; color: #FFF; margin: 0 0 1em; padding: 0.5em 0; }
+header address { float: left; font-size: 75%; font-style: normal; line-height: 1.25; margin: 0 1em 1em 0; }
+header address p { margin: 0 0 0.25em; }
+header span, header img { display: block; float: right; }
+header span { margin: 0 0 1em 1em; max-height: 25%; max-width: 60%; position: relative; }
+header img { max-height: 100%; max-width: 100%; }
+header input { cursor: pointer; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; height: 100%; left: 0; opacity: 0; position: absolute; top: 0; width: 100%; }
+
+/* article */
+
+article, article address, table.meta, table.inventory { margin: 0 0 3em; }
+article:after { clear: both; content: ""; display: table; }
+article h1 { clip: rect(0 0 0 0); position: absolute; }
+
+article address { float: left; font-size: 125%; font-weight: bold; }
+
+/* table meta & balance */
+
+table.meta, table.balance { float: right; width: 36%; }
+table.meta:after, table.balance:after { clear: both; content: ""; display: table; }
+
+/* table meta */
+
+table.meta th { width: 40%; }
+table.meta td { width: 60%; }
+
+/* table items */
+
+table.inventory { clear: both; width: 100%; }
+table.inventory th { font-weight: bold; text-align: center; }
+
+table.inventory td:nth-child(1) { width: 26%; }
+table.inventory td:nth-child(2) { width: 38%; }
+table.inventory td:nth-child(3) { text-align: right; width: 12%; }
+table.inventory td:nth-child(4) { text-align: right; width: 12%; }
+table.inventory td:nth-child(5) { text-align: right; width: 12%; }
+
+/* table balance */
+
+table.balance th, table.balance td { width: 50%; }
+table.balance td { text-align: right; }
+
+/* aside */
+
+aside h1 { border: none; border-width: 0 0 1px; margin: 0 0 1em; }
+aside h1 { border-color: #999; border-bottom-style: solid; }
+
+/* javascript */
+
+.add, .cut
+{
+    border-width: 1px;
+    display: block;
+    font-size: .8rem;
+    padding: 0.25em 0.5em;  
+    float: left;
+    text-align: center;
+    width: 0.6em;
+}
+
+.add, .cut
+{
+    background: #9AF;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    background-image: -moz-linear-gradient(#00ADEE 5%, #0078A5 100%);
+    background-image: -webkit-linear-gradient(#00ADEE 5%, #0078A5 100%);
+    border-radius: 0.5em;
+    border-color: #0076A3;
+    color: #FFF;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: 0 -1px 2px rgba(0,0,0,0.333);
+}
+
+.add { margin: -2.5em 0 0; }
+
+.add:hover { background: #00ADEE; }
+
+.cut { opacity: 0; position: absolute; top: 0; left: -1.5em; }
+.cut { -webkit-transition: opacity 100ms ease-in; }
+
+tr:hover .cut { opacity: 1; }
+
+@media print {
+    * { -webkit-print-color-adjust: exact; }
+    html { background: none; padding: 0; }
+    body { box-shadow: none; margin: 0; }
+    span:empty { display: none; }
+    .add, .cut { display: none; }
+}
+
+@page { margin: 0; }
 </style>
-<html>
