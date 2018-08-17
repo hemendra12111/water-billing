@@ -38,19 +38,19 @@ class Bill extends MY_Controller {
 	}
 
 	public function genrate_pdf($data){
-		ob_start();
 		$result['data']= $data;
-
 		$html = $this->load->view('bill_genrate',$result,true);
 
-		$this->load->library('Pdf');
-    	$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
-    	$pdf->SetTitle('Pdf Example');
-    	$pdf->SetFont('helvetica', '', 9);
-		$pdf->AddPage();
-		$pdf->writeHTML($html, true, 0, true, 0);
-		$pdf->lastPage();
-		ob_end_clean();
-		$pdf->Output('htmlout.pdf', 'D'); 
+        //this the the PDF filename that user will get to download
+		$pdfFilePath = "output_pdf_name.pdf";
+
+        //load mPDF library
+		$this->load->library('m_pdf');
+
+       //generate the PDF from the given html
+		$this->m_pdf->pdf->WriteHTML($html);
+
+        //download it.
+		$this->m_pdf->pdf->Output($pdfFilePath, "D");	
 	}
 }
