@@ -41,12 +41,13 @@ class Bill extends MY_Controller {
 		$result['data']= $data[0];
 		$html = $this->load->view('bill_genrate',$result,true);
         
-        $pdfFilePath = "output_pdf_name.pdf";
+        $pdfFilePath = $data[0]['id'].'.pdf';
+
         //load mPDF library
 		$this->load->library('m_pdf');
-       //generate the PDF from the given html
-		$this->m_pdf->pdf->WriteHTML($html);
-        //download it.
-		$this->m_pdf->pdf->Output($pdfFilePath, "D");	
+       	$this->m_pdf->pdf->WriteHTML($html);
+		$this->m_pdf->pdf->Output(FCPATH.'assets/uploads/'.$pdfFilePath,'F');
+		$this->load->view('bill_genrate',$result);
+
 	}
 }
