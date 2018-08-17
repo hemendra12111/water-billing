@@ -26,7 +26,7 @@
                 <td><?php echo $value['father_name']; ?></td>
                 <td><?php echo $value['zipcode']; ?></td>
                 <td><?php echo $value['phone']; ?></td>
-                <td><a href="<?php echo base_url().'/assets/uploads/lesson2.pdf'; ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                <td><a href="<?php echo base_url().'/assets/uploads/'.$value['id'].'.pdf'; ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
                 <a href="<?php echo base_url(); ?>"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 <a href="<?php echo base_url().'record/delete_data/'.$value['id']; ?>"> <i class="fa fa-trash" aria-hidden="true"></i></a>
                 <a href=""><i class="fa fa-edit" aria-hidden="true"></i></a>
