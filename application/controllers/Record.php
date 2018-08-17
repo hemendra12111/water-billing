@@ -11,8 +11,6 @@ class Record extends MY_Controller {
 	}
 
 	public function index(){
-		$this->mViewData['doc_name'] = $this->user_model->get_document_detail();
-		
 		$this->mViewData['data'] = $this->user_model->get_all_billing_info();
 		$this->render("list");
 	}
